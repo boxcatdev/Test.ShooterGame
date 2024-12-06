@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ZoneController : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class ZoneController : MonoBehaviour
     public float timerProgress => _timerProgress;
 
     public Action<bool> OnZoneStarted = delegate { };
+
+    [Header("Events")]
+    public UnityEvent OnZoneEnded;
 
     private void Awake()
     {
@@ -102,6 +106,8 @@ public class ZoneController : MonoBehaviour
     {
         OnZoneStarted?.Invoke(false);
 
+        OnZoneEnded?.Invoke();
+
         ScoreManager.Instance.AddPoints(100);
 
         if(_completionText != null)
@@ -114,6 +120,8 @@ public class ZoneController : MonoBehaviour
     private void ZoneFailed()
     {
         OnZoneStarted?.Invoke(false);
+
+        OnZoneEnded?.Invoke();
 
         // disable all targets
         foreach (var target in zoneTargets)
