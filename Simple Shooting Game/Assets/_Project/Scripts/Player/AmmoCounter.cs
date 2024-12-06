@@ -13,17 +13,27 @@ public class AmmoCounter : MonoBehaviour
     [Space]
     [SerializeField] private List<Image> _bullets = new List<Image>();
 
+    [Header("Prompt")]
+    [SerializeField] private Image _buttonPrompt;
+    [SerializeField] private UIDictionarySO _uIDictionarySO;
+
+    private InputHandler _input;
+
     private void Awake()
     {
         SetupCounter();
+
+        _input = gun.GetComponent<InputHandler>();
     }
     private void OnEnable()
     {
         gun.OnAmmoChanged += UpdateCounter;
+        gun.OnReloadPrompt += UpdatePrompt;
     }
     private void OnDisable()
     {
         gun.OnAmmoChanged -= UpdateCounter;
+        gun.OnReloadPrompt -= UpdatePrompt;
     }
 
     private void SetupCounter()
@@ -54,6 +64,21 @@ public class AmmoCounter : MonoBehaviour
             {
                 _bullets[i].color = _emptyColor;
             }
+        }
+    }
+    private void UpdatePrompt(bool active)
+    {
+        if(_buttonPrompt == null) return;
+        if(_uIDictionarySO == null) return;
+
+        if (active)
+        {
+            _buttonPrompt.gameObject.SetActive(true);
+            _buttonPrompt.sprite = _uIDictionarySO.GetSprite(PGInput.Reload, _input.isGamepad);
+        }
+        else
+        {
+            _buttonPrompt.gameObject.SetActive(false);
         }
     }
 }

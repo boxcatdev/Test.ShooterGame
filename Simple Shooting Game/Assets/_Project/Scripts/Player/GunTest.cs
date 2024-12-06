@@ -34,6 +34,7 @@ public class GunTest : MonoBehaviour
 
     // actions
     public Action<int> OnAmmoChanged = delegate { };
+    public Action<bool> OnReloadPrompt = delegate { };
 
     private void Awake()
     {
@@ -110,11 +111,17 @@ public class GunTest : MonoBehaviour
             }
         }
 
-        // check if need to reload
+        // reload prompt
         if(_ammoCount <= 0)
         {
-            StartReload();
+            OnReloadPrompt?.Invoke(true);
         }
+
+        // auto reload
+        /*if(_ammoCount <= 0)
+        {
+            StartReload();
+        }*/
     }
     private void StartReload()
     {
@@ -123,6 +130,8 @@ public class GunTest : MonoBehaviour
         _reloadProgress = _reloadTime;
 
         _gunAnimator.SetTrigger(_animIDReloadStart);
+
+        OnReloadPrompt?.Invoke(false);
     }
     private void EndReload()
     {
