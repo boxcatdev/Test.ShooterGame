@@ -15,6 +15,8 @@ public class InputHandler : MonoBehaviour
     public Action OnReloadAction = delegate { };
     public Action OnUseAction = delegate { };
 
+    public Action OnDeviceUpdated = delegate { };
+
     private PlayerInput playerInput;
 
     private string _currentControlScheme;
@@ -38,6 +40,8 @@ public class InputHandler : MonoBehaviour
         {
             isGamepad = true;
         }
+
+        OnDeviceUpdated?.Invoke();
     }
 
     public void OnMove(InputValue value)
