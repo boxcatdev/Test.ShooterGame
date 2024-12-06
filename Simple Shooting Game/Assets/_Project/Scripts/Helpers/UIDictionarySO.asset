@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b2d9044c487ad4d97f9b4326679e36, type: 3}
+  m_Name: UIDictionarySO
+  m_EditorClassIdentifier: 
+  _moveKeyboard: {fileID: 21300000, guid: a65ad92ea07778e4495c3ba1658dafc3, type: 3}
+  _moveGamepad: {fileID: 21300000, guid: a65ad92ea07778e4495c3ba1658dafc3, type: 3}
+  _lookKeyboard: {fileID: 21300000, guid: ed364c1afe4bde442aca595ffcbbec85, type: 3}
+  _lookGamepad: {fileID: 21300000, guid: be1ba64aa633e82498876a13e1447a47, type: 3}
+  _shootKeyboard: {fileID: 21300000, guid: d9b78fe6d9eb6ed4db324e7777170ed5, type: 3}
+  _shootGamepad: {fileID: 21300000, guid: 951878c9a35dcbe48a47bbbe81dd77ad, type: 3}
+  _reloadKeyboard: {fileID: 21300000, guid: 791b3327ca9aa8d45bafa32dcbf38021, type: 3}
+  _reloadGamepad: {fileID: 21300000, guid: 1ed6bc9eb62b04046a240725f8a86c75, type: 3}
+  _useKeyboard: {fileID: 21300000, guid: 40530b127e5b0394fb5d997c101021a9, type: 3}
+  _useGamepad: {fileID: 21300000, guid: efe668fbffb76f94a99e2a10d820b6f5, type: 3}
