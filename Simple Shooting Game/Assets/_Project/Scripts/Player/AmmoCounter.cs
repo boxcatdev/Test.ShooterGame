@@ -29,11 +29,15 @@ public class AmmoCounter : MonoBehaviour
     {
         gun.OnAmmoChanged += UpdateCounter;
         gun.OnReloadPrompt += UpdatePrompt;
+
+        _input.OnDeviceUpdated += UpdateSprite;
     }
     private void OnDisable()
     {
         gun.OnAmmoChanged -= UpdateCounter;
         gun.OnReloadPrompt -= UpdatePrompt;
+
+        _input.OnDeviceUpdated -= UpdateSprite;
     }
 
     private void SetupCounter()
@@ -80,5 +84,9 @@ public class AmmoCounter : MonoBehaviour
         {
             _buttonPrompt.gameObject.SetActive(false);
         }
+    }
+    private void UpdateSprite()
+    {
+        _buttonPrompt.sprite = _uIDictionarySO.GetSprite(PGInput.Reload, _input.isGamepad);
     }
 }

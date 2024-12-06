@@ -14,6 +14,7 @@ public class InputHandler : MonoBehaviour
     public Action OnShootAction = delegate { };
     public Action OnReloadAction = delegate { };
     public Action OnUseAction = delegate { };
+    public Action OnPauseAction = delegate { };
 
     public Action OnDeviceUpdated = delegate { };
 
@@ -74,6 +75,12 @@ public class InputHandler : MonoBehaviour
 
         UseInput(value.isPressed);
     }
+    public void OnPause(InputValue value)
+    {
+        CheckDevice(playerInput.currentControlScheme);
+
+        PauseInput(value.isPressed);
+    }
 
 
     public void MoveInput(Vector2 moveDirection)
@@ -95,5 +102,9 @@ public class InputHandler : MonoBehaviour
     public void UseInput(bool useValue)
     {
         if (useValue) OnUseAction?.Invoke();
+    }
+    public void PauseInput(bool pauseValue)
+    {
+        if(pauseValue) OnPauseAction?.Invoke();
     }
 }

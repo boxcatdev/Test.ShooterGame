@@ -22,3 +22,5 @@ MonoBehaviour:
   _reloadGamepad: {fileID: 21300000, guid: 1ed6bc9eb62b04046a240725f8a86c75, type: 3}
   _useKeyboard: {fileID: 21300000, guid: 40530b127e5b0394fb5d997c101021a9, type: 3}
   _useGamepad: {fileID: 21300000, guid: efe668fbffb76f94a99e2a10d820b6f5, type: 3}
+  _pauseKeyboard: {fileID: 21300000, guid: 8c456b04e422c3049b918c44c5c1e802, type: 3}
+  _pauseGamepad: {fileID: 21300000, guid: ff1ee52d1e7b58944aeacfa0489422b6, type: 3}

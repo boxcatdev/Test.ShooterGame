@@ -32,11 +32,15 @@ public class InteractionUI : MonoBehaviour
     {
         playerInteract.OnGetInteractable += RefreshUI;
         playerInteract.OnPressInteractionKey += RefreshUI;
+
+        _input.OnDeviceUpdated += UpdateSprite;
     }
     private void OnDisable()
     {
         playerInteract.OnGetInteractable -= RefreshUI;
         playerInteract.OnPressInteractionKey -= RefreshUI;
+
+        _input.OnDeviceUpdated -= UpdateSprite;
     }
 
     #region Show and Hide the UI
@@ -56,6 +60,10 @@ public class InteractionUI : MonoBehaviour
     {
         _interactionText.gameObject.SetActive(false);
         _buttonPrompt.gameObject.SetActive(false);
+    }
+    private void UpdateSprite()
+    {
+        _buttonPrompt.sprite = _uiDictionarySO.GetSprite(PGInput.Use, _input.isGamepad);
     }
     #endregion
 

@@ -426,8 +426,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerCam: {fileID: 4967450832970797444}
-  _ammoCount: 10
-  _maxAmmoCount: 10
+  _ammoCount: 20
+  _maxAmmoCount: 20
   _reloadTime: 1.5
   _reloadProgress: 0
   _gunAnimator: {fileID: 3050429898866240441}

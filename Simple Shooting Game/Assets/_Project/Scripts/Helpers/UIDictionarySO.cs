@@ -23,6 +23,10 @@ public class UIDictionarySO : ScriptableObject
     [SerializeField] private Sprite _useKeyboard;
     [SerializeField] private Sprite _useGamepad;
 
+    [Header("Pause Sprites")]
+    [SerializeField] private Sprite _pauseKeyboard;
+    [SerializeField] private Sprite _pauseGamepad;
+
 
     public Sprite GetSprite(PGInput inputType, bool isGamepad)
     {
@@ -40,8 +44,10 @@ public class UIDictionarySO : ScriptableObject
                 return isGamepad ? _shootGamepad : _shootKeyboard;
             case PGInput.Use:
                 return isGamepad ? _useGamepad : _useKeyboard;
+            case PGInput.Pause:
+                return isGamepad ? _pauseGamepad : _pauseKeyboard;
         }
     }
 }
 
-public enum PGInput { Move, Look, Shoot, Reload, Use}
+public enum PGInput { Move, Look, Shoot, Reload, Use, Pause}
