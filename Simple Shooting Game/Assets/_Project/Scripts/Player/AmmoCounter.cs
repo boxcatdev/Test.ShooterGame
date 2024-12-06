@@ -25,6 +25,10 @@ public class AmmoCounter : MonoBehaviour
 
         _input = gun.GetComponent<InputHandler>();
     }
+    private void Start()
+    {
+        if(_buttonPrompt != null) _buttonPrompt.gameObject.SetActive(false);
+    }
     private void OnEnable()
     {
         gun.OnAmmoChanged += UpdateCounter;
