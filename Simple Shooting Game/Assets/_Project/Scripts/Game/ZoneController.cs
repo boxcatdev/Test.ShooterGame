@@ -1,16 +1,106 @@
+using PatchworkGames;
+using System;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ZoneController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [Header("Zone Targets")]
+    [SerializeField] private List<Target> zoneTargets = new List<Target>();
+    [SerializeField] private float _zoneTimer = 30f;
+    [SerializeField] private bool _zoneStarted = false;
+
+    [Header("HUD")]
+    [SerializeField] private TextMeshProUGUI _timerText;
+
+    private int zoneCount = 0;
+    private float _timerProgress;
+    public float timerProgress => _timerProgress;
+
+    public Action<bool> OnZoneStarted = delegate { };
+
+    private void Awake()
     {
-        
+        if(zoneTargets.Count == 0)
+        {
+            zoneTargets = new List<Target>(transform.GetComponentsInChildren<Target>(true));
+        }
+
+        zoneCount = zoneTargets.Count;
+    }
+    private void Start()
+    {
+        if(_timerText != null)
+            if(_timerText.gameObject.activeInHierarchy) _timerText.gameObject.SetActive(false);
+    }
+    private void OnEnable()
+    {
+        OnZoneStarted += EnableTimerText;
+    }
+    private void OnDisable()
+    {
+        OnZoneStarted += EnableTimerText;
+    }
+    private void Update()
+    {
+        if (_zoneStarted)
+        {
+            _timerProgress -= Time.deltaTime;
+            if(_timerProgress <= 0)
+            {
+                _zoneStarted = false;
+                if(zoneCount > 0)
+                {
+                    ZoneFailed();
+                }
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void RefreshTimerText()
     {
+        if (_timerText == null) return;
+
+        float seconds = _timerProgress;
+        _timerText.text = Utility.DisplayTimeSeconds(seconds, false);
+    }
+    private void EnableTimerText(bool enabled)
+    {
+        if (_timerText == null) return;
+
+        _timerText.gameObject.SetActive(enabled);
+    }
+    public void StartZone()
+    {
+        if(_zoneStarted) return;
+
+        zoneCount = zoneTargets.Count;
+        _zoneStarted = true;
+        _timerProgress = _zoneTimer;
         
+        OnZoneStarted?.Invoke(true);
+    }
+    public void HitZone()
+    {
+        if(_zoneStarted == false) return;
+
+        zoneCount--;
+
+        if (zoneCount <= 0)
+        {
+            ZoneComplete();
+        }
+    }
+    private void ZoneComplete()
+    {
+        OnZoneStarted?.Invoke(false);
+
+        ScoreManager.Instance.AddPoints(100);
+    }
+    private void ZoneFailed()
+    {
+        OnZoneStarted?.Invoke(false);
+
     }
 }
