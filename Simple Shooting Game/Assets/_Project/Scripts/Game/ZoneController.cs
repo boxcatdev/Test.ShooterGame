@@ -1,5 +1,6 @@
 using PatchworkGames;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class ZoneController : MonoBehaviour
 
     [Header("HUD")]
     [SerializeField] private TextMeshProUGUI _timerText;
+    [SerializeField] private TextMeshProUGUI _completionText;
 
     private int zoneCount = 0;
     private float _timerProgress;
@@ -31,8 +33,9 @@ public class ZoneController : MonoBehaviour
     }
     private void Start()
     {
-        if(_timerText != null)
-            if(_timerText.gameObject.activeInHierarchy) _timerText.gameObject.SetActive(false);
+        if(_timerText != null) if(_timerText.gameObject.activeInHierarchy) _timerText.gameObject.SetActive(false);
+        if(_completionText!= null) if (_completionText.gameObject.activeInHierarchy) _completionText.gameObject.SetActive(false);
+
     }
     private void OnEnable()
     {
@@ -55,6 +58,8 @@ public class ZoneController : MonoBehaviour
                     ZoneFailed();
                 }
             }
+
+            RefreshTimerText();
         }
     }
 
@@ -89,6 +94,7 @@ public class ZoneController : MonoBehaviour
 
         if (zoneCount <= 0)
         {
+            _zoneStarted = false;
             ZoneComplete();
         }
     }
@@ -97,10 +103,36 @@ public class ZoneController : MonoBehaviour
         OnZoneStarted?.Invoke(false);
 
         ScoreManager.Instance.AddPoints(100);
+
+        if(_completionText != null)
+        {
+            _completionText.gameObject.SetActive(true);
+            _completionText.text = "Zone Complete!";
+            StartCoroutine(DelayDisable(_completionText.gameObject, 2f));
+        }
     }
     private void ZoneFailed()
     {
         OnZoneStarted?.Invoke(false);
 
+        // disable all targets
+        foreach (var target in zoneTargets)
+        {
+            target.EndAnim();
+        }
+
+        if (_completionText != null)
+        {
+            _completionText.gameObject.SetActive(true);
+            _completionText.text = "Zone Failed!";
+            StartCoroutine(DelayDisable(_completionText.gameObject, 2f));
+        }
+    }
+
+    IEnumerator DelayDisable(GameObject gameObject, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        gameObject.SetActive(false);
     }
 }

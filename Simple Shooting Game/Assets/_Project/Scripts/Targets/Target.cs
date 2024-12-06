@@ -1,6 +1,7 @@
 using PatchworkGames;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Target : MonoBehaviour, ITarget
 {
@@ -18,8 +19,8 @@ public class Target : MonoBehaviour, ITarget
 
     private bool _isActive = true;
 
-    [Header("Animation")]
-    [SerializeField] private Transform _scaleParent;
+    //[Header("Animation")]
+    //[SerializeField] private Transform _scaleParent;
 
     private Animator _animator;
 
@@ -28,6 +29,9 @@ public class Target : MonoBehaviour, ITarget
 
     // Actions
     public Action OnHitTarget = delegate { };
+
+    [Header("Events")]
+    public UnityEvent OnTargetHit;
 
     private void Awake()
     {
@@ -56,6 +60,8 @@ public class Target : MonoBehaviour, ITarget
         ScoreManager.Instance.AddPoints(pointValue);
 
         Debug.Log($"Hit {_pointValue} points");
+
+        OnTargetHit?.Invoke();
 
         Spawn3DText();
 
@@ -97,7 +103,7 @@ public class Target : MonoBehaviour, ITarget
         _isActive = true;
         _animator.enabled = false;
     }
-    private void EndAnim()
+    public void EndAnim()
     {
         _animator.enabled = true;
         _animator.SetTrigger(_animIDEnd);
