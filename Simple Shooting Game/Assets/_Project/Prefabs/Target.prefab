@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3845809901722859230}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Text Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,6 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6658021508878755470}
   - component: {fileID: 1368083995433129665}
+  - component: {fileID: 93614080321280204}
   m_Layer: 0
   m_Name: Target
   m_TagString: Untagged
@@ -203,7 +204,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _3dText: {fileID: 209456963579985902, guid: cc6994cd50f08e14f8434f9c8fb27766, type: 3}
   _textSpawnPoint: {fileID: 3845809901722859230}
+  _respawn: 0
+  _respawnTime: 5
   _pointValue: 10
+  _scaleParent: {fileID: 2374538254113093513}
+--- !u!95 &93614080321280204
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3692887692756601314}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e68c95257d56c924282ba3ff803908c1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5012738776897689761
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +375,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2270442823326271281}
   - {fileID: 5013156210045002464}
